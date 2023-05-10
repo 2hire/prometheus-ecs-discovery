@@ -37,15 +37,7 @@ import (
 )
 
 type labels struct {
-	TaskArn       string `yaml:"task_arn"`
-	TaskName      string `yaml:"task_name"`
 	JobName       string `yaml:"job,omitempty"`
-	TaskRevision  string `yaml:"task_revision"`
-	TaskGroup     string `yaml:"task_group"`
-	ClusterArn    string `yaml:"cluster_arn"`
-	ContainerName string `yaml:"container_name"`
-	ContainerArn  string `yaml:"container_arn"`
-	DockerImage   string `yaml:"docker_image"`
 	MetricsPath   string `yaml:"__metrics_path__,omitempty"`
 	Scheme        string `yaml:"__scheme__,omitempty"`
 }
@@ -279,15 +271,7 @@ func (t *AugmentedTask) ExporterInformation() []*PrometheusTaskInfo {
 		}
 
 		labels := labels{
-			TaskArn:       *t.TaskArn,
-			TaskName:      *t.TaskDefinition.Family,
 			JobName:       d.DockerLabels[*prometheusJobNameLabel],
-			TaskRevision:  fmt.Sprintf("%d", t.TaskDefinition.Revision),
-			TaskGroup:     *t.Group,
-			ClusterArn:    *t.ClusterArn,
-			ContainerName: *i.Name,
-			ContainerArn:  *i.ContainerArn,
-			DockerImage:   *d.Image,
 		}
 
 		exporterPath, ok = d.DockerLabels[*prometheusPathLabel]
